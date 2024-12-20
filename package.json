@@ -1,0 +1,77 @@
+{
+    "name": "nylo-micro-framework",
+    "displayName": "Nylo Micro-Framework",
+    "description": "VS Code extension for Nylo framework project management (Unofficial)",
+    "version": "1.0.0",
+    "publisher": "ruwiss",
+    "icon": "images/icon.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/nylo-core"
+    },
+    "engines": {
+        "vscode": "^1.96.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "keywords": [
+        "nylo",
+        "flutter",
+        "dart",
+        "framework",
+        "micro-framework"
+    ],
+    "activationEvents": [
+        "onCommand:nylo.createProject",
+        "onCommand:nylo.updateGitPath",
+        "onCommand:nylo.make"
+    ],
+    "main": "./extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "nylo.createProject",
+                "title": "Nylo: Create Project"
+            },
+            {
+                "command": "nylo.updateGitPath",
+                "title": "Nylo: Update Git Repository Path"
+            },
+            {
+                "command": "nylo.make",
+                "title": "Nylo: Make"
+            }
+        ],
+        "configuration": {
+            "title": "Nylo",
+            "properties": {
+                "nylo.nyloGitPath": {
+                    "type": "string",
+                    "default": "https://github.com/nylo-core/nylo.git",
+                    "description": "Git repository URL for creating new Nylo projects"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "pretest": "pnpm run lint",
+        "test": "vscode-test",
+        "package": "vsce package",
+        "publish": "vsce publish"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.96.0",
+        "@types/mocha": "^10.0.10",
+        "@types/node": "20.x",
+        "eslint": "^9.16.0",
+        "@vscode/test-cli": "^0.0.10",
+        "@vscode/test-electron": "^2.4.1",
+        "@vscode/vsce": "^2.24.0"
+    },
+    "dependencies": {
+        "@vscode/vsce": "^2.24.0"
+    },
+    "packageManager": "pnpm@8.14.0"
+}
