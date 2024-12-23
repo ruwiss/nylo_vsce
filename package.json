@@ -7,7 +7,7 @@
     "icon": "images/icon.png",
     "repository": {
         "type": "git",
-        "url": "https://github.com/nylo-core"
+        "url": "https://github.com/ruwiss/nylo_vsce"
     },
     "engines": {
         "vscode": "^1.13.0"
