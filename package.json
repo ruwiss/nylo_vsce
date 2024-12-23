@@ -2,7 +2,7 @@
     "name": "nylo-micro-framework",
     "displayName": "Nylo Micro-Framework",
     "description": "VS Code extension for Nylo framework project management (Unofficial)",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "publisher": "ruwiss",
     "icon": "images/icon.png",
     "repository": {
@@ -10,7 +10,7 @@
         "url": "https://github.com/nylo-core"
     },
     "engines": {
-        "vscode": "^1.96.0"
+        "vscode": "^1.13.0"
     },
     "categories": [
         "Other"
@@ -62,7 +62,7 @@
         "publish": "vsce publish"
     },
     "devDependencies": {
-        "@types/vscode": "^1.96.0",
+        "@types/vscode": "^1.13.0",
         "@types/mocha": "^10.0.10",
         "@types/node": "20.x",
         "eslint": "^9.16.0",

@@ -12,9 +12,13 @@ function formatProjectName(name) {
     .replace(/\p{Diacritic}/gu, "");
 }
 
-function replaceInFile(filePath, searchValue, replaceValue) {
+function replaceInFile(filePath, searchPattern, replaceValue) {
   const fileContent = fs.readFileSync(filePath, "utf8");
-  const updatedContent = fileContent.replace(new RegExp(searchValue, "g"), replaceValue);
+  const pattern = typeof searchPattern === "string" ? searchPattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") : searchPattern;
+
+  const regex = new RegExp(pattern, "g");
+  const updatedContent = fileContent.replace(regex, replaceValue);
+
   fs.writeFileSync(filePath, updatedContent, "utf8");
 }
 
@@ -71,6 +75,22 @@ async function createProject() {
       }
     );
 
+    // Git klasörlerini sil
+    const gitFolderPath = path.join(clonePath, ".git");
+    const githubFolderPath = path.join(clonePath, ".github");
+
+    try {
+      if (fs.existsSync(gitFolderPath)) {
+        fs.rmSync(gitFolderPath, { recursive: true, force: true });
+      }
+
+      if (fs.existsSync(githubFolderPath)) {
+        fs.rmSync(githubFolderPath, { recursive: true, force: true });
+      }
+    } catch (error) {
+      console.error("Git klasörleri silinirken hata oluştu:", error);
+    }
+
     // Update files with the new package name and project name
     const gradleFilePath = path.join(clonePath, "android", "app", "build.gradle");
     const mainActivityPath = path.join(clonePath, "android", "app", "src", "main", "kotlin", "com", "nylo", "android", "MainActivity.kt");
@@ -81,6 +101,21 @@ async function createProject() {
     replaceInFile(mainActivityPath, "com.nylo.android", packageName);
     replaceInFile(manifestPath, 'android:label="Nylo"', `android:label="${projectName}"`);
     replaceInFile(envFilePath, 'APP_NAME="Nylo"', `APP_NAME="${projectName}"`);
+
+    // pubspec.yaml dosyasını güncelle
+    const pubspecPath = path.join(clonePath, "pubspec.yaml");
+    if (fs.existsSync(pubspecPath)) {
+      try {
+        const pubspecContent = fs.readFileSync(pubspecPath, "utf8");
+        const updatedPubspec = pubspecContent.replace(/^name:.*$/m, `name: ${formattedName}`);
+        fs.writeFileSync(pubspecPath, updatedPubspec, "utf8");
+      } catch (error) {
+        console.error("pubspec.yaml güncellenirken hata oluştu:", error);
+      }
+    }
+
+    // VS Code'un git extension'ının yeniden yüklenmesi için biraz bekle
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // Run Dart command after setup
     await new Promise((resolve, reject) => {
