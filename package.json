@@ -2,7 +2,7 @@
     "name": "nylo-micro-framework",
     "displayName": "Nylo Micro-Framework",
     "description": "VS Code extension for Nylo framework project management (Unofficial)",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "publisher": "ruwiss",
     "icon": "images/icon.png",
     "repository": {

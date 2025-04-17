@@ -78,6 +78,8 @@ function activate(context) {
     { label: "make:route_guard", description: "Create a new route guard" },
     { label: "make:config", description: "Create a new config" },
     { label: "make:interceptor", description: "Create a new interceptor" },
+    { label: "make:command", description: "Create a new command" },
+    { label: "make:journey_widget", description: "Create a new journey widget" },
   ];
 
   const nyloMakeCommand = vscode.commands.registerCommand("nylo.make", async () => {
@@ -132,6 +134,7 @@ function activate(context) {
     { label: "make:state_managed_widget", description: "Create a new state managed widget" },
     { label: "make:navigation_hub", description: "Create a new navigation hub" },
     { label: "make:form", description: "Create a new form" },
+    { label: "make:journey_widget", description: "Create a new journey widget" },
   ];
 
   const appCommands = [
@@ -144,6 +147,7 @@ function activate(context) {
     { label: "make:route_guard", description: "Create a new route guard" },
     { label: "make:config", description: "Create a new config" },
     { label: "make:interceptor", description: "Create a new interceptor" },
+    { label: "make:command", description: "Create a new command" },
   ];
 
   for (const cmd of widgetCommands) {
